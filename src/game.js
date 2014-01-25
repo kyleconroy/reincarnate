@@ -33,7 +33,7 @@ Game = {
         var at_edge = x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1;
 
         if (at_edge) {
-          
+
           // Place a rock entity at the current tile
           Crafty.e('Rock')
           .attr({

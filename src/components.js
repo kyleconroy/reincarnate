@@ -11,7 +11,7 @@ Crafty.c('Earth', {
     .onHit('Worm', this.leaveTrace);
   },
   leaveTrace: function(data) {
-    this.color(58,58,56);
+    this.color('rgb(58,58,56)');
   }
 });
 
@@ -51,7 +51,7 @@ Crafty.c('Surface', {
     this.requires('Actor, Color')
     .color('blue');
   },
-  
+
   collect: function() {
     this.destroy();
     Crafty.trigger('SurfaceVisited', this);
