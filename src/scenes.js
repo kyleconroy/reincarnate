@@ -24,7 +24,7 @@ Crafty.scene('Game', function() {
         this.occupied[x][y] = true;
       } else if (Math.random() < 0.06 && !this.occupied[x][y]) {
         // Place a bush entity at the current tile
-        Crafty.e('Bush').at(x, y);
+        Crafty.e('Rock').at(x, y);
         this.occupied[x][y] = true;
       }
     }

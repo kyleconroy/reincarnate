@@ -25,7 +25,7 @@ Game = {
   },
   start: function() {
     // Start crafty and set a background color so that we can see it's working
-    Crafty.init(Game.width(), Game.height());
+    Crafty.init();
     Crafty.background('rgb(94,21,1)');
     // Crafty.scene('Game');
     for (var x = 0; x < Game.map_grid.width; x++) {
@@ -34,24 +34,22 @@ Game = {
 
         if (at_edge) {
           // Place a tree entity at the current tile
-          Crafty.e('2D, Canvas, Color')
+          Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
             y: y * Game.map_grid.tile.height,
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-          .color('rgb(89,89,89)');
         } else if (Math.random() < 0.06) {
           // Place a larger  at the current tile
-          Crafty.e('2D, Canvas, Color')
+          Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
             y: y * Game.map_grid.tile.height,
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-          .color('rgb(89,89,89)');
         }
       }
     }
