@@ -25,6 +25,7 @@ Game = {
     // Start crafty and set a background color so that we can see it's working
     Crafty.init();
     Crafty.background('rgb(94,21,1)');
+    Crafty.pixelart(true);
     Crafty.scene('Loading');
   }
 }

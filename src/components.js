@@ -17,9 +17,10 @@ Crafty.c('Earth', {
 
 Crafty.c('Worm', {
   init: function() {
-    this.requires('Actor, Fourway, Color, Collision')
+    this.requires('Actor, Fourway, Collision, SpriteAnimation, WormSprite')
     .fourway(2)
-    .color('rgb(255, 109, 188)')
+    .reel('WormWriggle', 700, [[0, 0], [0, 1], [0, 2], [0, 1]])
+    .animate('WormWriggle', -1)
     .onHit('Surface', this.visitSurface)
     .onHit('Solid', this.stopMovement);
   },

@@ -1,15 +1,16 @@
 Crafty.scene('Loading', function(){
-
   // Load our sprite map image
   Crafty.load(['assets/sprites/worm.png'], function(){
-
-    Crafty.sprite(16, 'assets/sprites/worm.png', {
-      spr_player: [0, 2],
-    }, 0, 2);
-
+    Crafty.sprite(64, 16, 'assets/sprites/worm.png', {
+      WormSprite: [0, 0],
+    }, 0, 0);
     Crafty.scene('Game');
   })
 });
+
+Crafty.scene('WormTest', function(){
+});
+
 
 Crafty.scene('Game', function(){
   for (var x = 0; x < Game.map_grid.width; x++) {
@@ -52,10 +53,10 @@ Crafty.scene('Game', function(){
 
   e = Crafty.e('Worm')
     .attr({
-      x: (Crafty.viewport.width / 2) - 5,
-      y: (Crafty.viewport.height / 2) - 5,
-      w: 10,
-      h: 20,
+      x: Math.floor(Crafty.viewport.width / 2) - 5,
+      y: Math.floor(Crafty.viewport.height / 2) - 5,
+      w: 64,
+      h: 16,
     })
 
   Crafty.e('Surface')
