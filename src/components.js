@@ -4,13 +4,24 @@ Crafty.c('Actor', {
   },
 });
 
+Crafty.c('Earth', {
+  init: function() {
+    this.requires('Actor, Fourway, Color, Collision')
+    .color('rgb(39, 40, 34)')
+    .onHit('Worm', this.leaveTrace);
+  },
+  leaveTrace: function(data) {
+    this.color(58,58,56);
+  }
+});
+
 Crafty.c('Worm', {
   init: function() {
     this.requires('Actor, Fourway, Color, Collision')
-      .fourway(2)
-      .color('rgb(255, 109, 188)')
-      .onHit('Surface', this.visitSurface)
-      .onHit('Solid', this.stopMovement);
+    .fourway(2)
+    .color('rgb(255, 109, 188)')
+    .onHit('Surface', this.visitSurface)
+    .onHit('Solid', this.stopMovement);
   },
 
   // Stops the movement
@@ -23,24 +34,24 @@ Crafty.c('Worm', {
   },
 
   visitSurface: function(data) {
-    villlage = data[0].obj;
-    villlage.collect();
+    surface = data[0].obj;
+    surface.collect();
   }
 });
 
 Crafty.c('Rock', {
   init: function() {
     this.requires('Actor, Color, Solid')
-      .color('gray');
+    .color('gray');
   },
 });
 
 Crafty.c('Surface', {
   init: function() {
     this.requires('Actor, Color')
-      .color('blue');
+    .color('blue');
   },
- 
+  
   collect: function() {
     this.destroy();
     Crafty.trigger('SurfaceVisited', this);
