@@ -33,7 +33,8 @@ Game = {
         var at_edge = x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1;
 
         if (at_edge) {
-          // Place a tree entity at the current tile
+
+          // Place a rock entity at the current tile
           Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
@@ -41,8 +42,18 @@ Game = {
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-        } else if (Math.random() < 0.06) {
-          // Place a larger  at the current tile
+        } else {
+          if(Math.random() > 0.06) {
+            Crafty.e('Earth')
+            .attr({
+              x: x * Game.map_grid.tile.width,
+              y: y * Game.map_grid.tile.height,
+              w: Game.map_grid.tile.width,
+              h: Game.map_grid.tile.height
+            })
+          }
+          if (Math.random() < 0.06) {
+          // Place a larger rock at the current tile
           Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
@@ -53,24 +64,25 @@ Game = {
         }
       }
     }
-
-    e = Crafty.e('Worm')
-    .attr({
-      x: (Crafty.viewport.width / 2) - 5,
-      y: (Crafty.viewport.height / 2) - 5,
-      w: 10,
-      h: 20,
-    })
-
-    Crafty.e('Surface')
-    .attr({
-      x: (Crafty.viewport.width - 20),
-      y: 0,
-      w: 20,
-      h: (Crafty.viewport.height),
-    })
-
   }
+
+  e = Crafty.e('Worm')
+  .attr({
+    x: (Crafty.viewport.width / 2) - 5,
+    y: (Crafty.viewport.height / 2) - 5,
+    w: 10,
+    h: 20,
+  })
+
+  Crafty.e('Surface')
+  .attr({
+    x: (Crafty.viewport.width - 20),
+    y: 0,
+    w: 20,
+    h: (Crafty.viewport.height),
+  })
+
+}
 
 }
 
