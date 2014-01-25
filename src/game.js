@@ -1,3 +1,5 @@
+var e;
+
 Game = {
   // Initialize and start our game
   start: function() {
@@ -5,15 +7,24 @@ Game = {
     Crafty.init();
     Crafty.background('green');
 
-    var x = (Crafty.viewport.width / 2);
-    var y = (Crafty.viewport.height / 2);
-    var ent = Crafty.e('PlayerCharacter').at(x, y);
+    e = Crafty.e('Worm')
+      .attr({
+        x: (Crafty.viewport.width / 2) - 5,
+        y: (Crafty.viewport.height / 2) - 5,
+        w: 10,
+        h: 10,
+      })
 
-    Crafty.viewport.follow(ent, 0, 0);
+    //Crafty.viewport.follow(e, 0, 0);
   }
 
 }
 
 window.onresize = function() { // responsible game borders
   Crafty.viewport.reload();
+
+  e.attr({
+    x: (Crafty.viewport.width / 2) - 5,
+    y: (Crafty.viewport.height / 2) - 5,
+  })
 };

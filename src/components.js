@@ -1,13 +1,13 @@
 Crafty.c('Actor', {
   init: function() {
-    this.requires('2D, Canvas, Grid');
+    this.requires('2D, Canvas');
   },
 });
 
-Crafty.c('PlayerCharacter', {
+Crafty.c('Worm', {
   init: function() {
     this.requires('Actor, Fourway, Color')
       .fourway(4)
-      .color('rgb(0,0,100)');
+      .color('black');
   }
 });
