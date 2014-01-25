@@ -52,7 +52,7 @@ Game = {
               h: Game.map_grid.tile.height
             })
           }
-          if (Math.random() < 0.06) {
+          else {
           // Place a larger rock at the current tile
           Crafty.e('Rock')
           .attr({
