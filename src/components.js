@@ -3,45 +3,51 @@ Crafty.c("Multioneway", {
 
     _keydown: function (e) {
         if (this._keys[e.key]) {
-            var mx = Math.round((this._movement.x + this._keys[e.key].x) * 1000) / 1000;
-            var my = Math.round((this._movement.y + this._keys[e.key].y) * 1000) / 1000;
+            var key = this._keys[e.key];
+            var mx = Math.round((this._movement.x + key.x) * 1000) / 1000;
+            var my = Math.round((this._movement.y + key.y) * 1000) / 1000;
 
-            if (mx !== 0) {
-              this._movement.x = mx
-              this._movement.y = 0
+            if (key.x !== 0) {
+              if (this._movement.y == 0) {
+                if ((this._movement.x == 0) || (key.x < 0 && this._movement.x < 0) || (key.x > 0 && this._movement.x > 0)) {
+                  this._movement.x = mx;
+                  this.trigger('NewDirection', this._movement);
+                }
+              }
             } else {
-              this._movement.x = 0
-              this._movement.y = my
+              if (this._movement.x == 0) {
+                if ((this._movement.y == 0) || (key.y < 0 && this._movement.y < 0) || (key.y > 0 && this._movement.y > 0)) {
+                  this._movement.y = my;
+                  this.trigger('NewDirection', this._movement);
+                }
+              }
             }
 
-            this.trigger('NewDirection', this._movement);
         }
     },
 
     _keyup: function (e) {
-       if (this._keys[e.key]) {
-            console.log(this._keys[e.key].x);
-            console.log(this._keys[e.key].y);
+      if (this._keys[e.key]) {
+        var key = this._keys[e.key];
+        var mx = Math.round((this._movement.x - key.x) * 1000) / 1000;
+        var my = Math.round((this._movement.y - key.y) * 1000) / 1000;
 
-            var mx = Math.round((this._movement.x - this._keys[e.key].x) * 1000) / 1000;
-            var my = Math.round((this._movement.y - this._keys[e.key].y) * 1000) / 1000;
-
-            if (mx !== 0) {
-              this._movement.x = mx
-              this._movement.y = 0
-            } else {
-              this._movement.x = 0
-              this._movement.y = my
-            }
-
+        if (key.y !== 0) {
+          if ((key.y < 0 && this._movement.y < 0) || (key.y > 0 && this._movement.y > 0)) {
+            this._movement.y = 0
             this.trigger('NewDirection', this._movement);
+          }
+        } else if (key.x !== 0) {
+          if ((key.x < 0 && this._movement.x < 0) || (key.x > 0 && this._movement.x > 0)) {
+            this._movement.x = 0
+            this.trigger('NewDirection', this._movement);
+          }
         }
+      }
     },
 
     _enterframe: function () {
         if (this.disableControls) return;
-
-        console.log(this._movement.x, this._movement.y);
 
         if (this._movement.x !== 0) {
             this.x += this._movement.x;
@@ -49,7 +55,8 @@ Crafty.c("Multioneway", {
                 x: this.x - this._movement.x,
                 y: this.y
             });
-        } else if (this._movement.y !== 0) {
+        } 
+        if (this._movement.y !== 0) {
             this.y += this._movement.y;
             this.trigger('Moved', {
                 x: this.x,
@@ -170,7 +177,6 @@ Crafty.c('Trail', {
 
 
 Crafty.c('Worm', {
-
   init: function() {
     this.trail = new Array(Game.map_grid.width);
     for (var i = 0; i < Game.map_grid.width; i++) {
@@ -229,17 +235,7 @@ Crafty.c('Worm', {
       trail[x][y] = true;
     }
   },
-  // colorGround: function(e) {
-  //   Crafty.background(red)
-    // Crafty.e('Earth').attr({
-    //   x: this.x,
-    //   y: this.y,
-    //   w: Game.map_grid.tile.width,
-    //   h: Game.map_grid.tile.height
-    // })
-  // },
 
-  // Stops the movement
   stopMovement: function(e) {
     this._speed = 0;
     if (this._movement) {
