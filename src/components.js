@@ -349,7 +349,6 @@ Crafty.c('WormHitBox', {
       flash.destroy();
     }
 
->>>>>>> 2675902fcce1d6b7c38d403b8e17c07ecb5094fd
     this._speed = 0;
     if (this._movement) {
       this.x -= this._movement.x;
