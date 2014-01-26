@@ -42,7 +42,8 @@ Game = {
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-        } else {
+        } 
+        else {
           if(Math.random() > 0.06) {
             Crafty.e('Earth')
             .attr({
@@ -61,7 +62,7 @@ Game = {
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-        }
+        // }
       }
     }
   }

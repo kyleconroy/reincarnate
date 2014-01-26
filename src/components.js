@@ -8,6 +8,7 @@ Crafty.c('Earth', {
   init: function() {
     this.requires('Actor, Fourway, Color, Collision')
     .color('rgb(39, 40, 34)')
+    // .color('rgb(58,58,56)')
     .onHit('Worm', this.leaveTrace);
   },
   leaveTrace: function(data) {
@@ -19,10 +20,21 @@ Crafty.c('Worm', {
   init: function() {
     this.requires('Actor, Fourway, Color, Collision')
     .fourway(2)
+    // .bind(this.colorGround)    
     .color('rgb(255, 109, 188)')
     .onHit('Surface', this.visitSurface)
     .onHit('Solid', this.stopMovement);
   },
+
+  // colorGround: function(e) {
+  //   Crafty.background(red)
+    // Crafty.e('Earth').attr({
+    //   x: this.x,
+    //   y: this.y,
+    //   w: Game.map_grid.tile.width,
+    //   h: Game.map_grid.tile.height
+    // })
+  // },
 
   // Stops the movement
   stopMovement: function(e) {
