@@ -127,9 +127,9 @@ Crafty.scene('BirdGame', function() {
       h: 16,
     })
     
- var safeZone = Crafty.e('2D, Canvas, Collision,Color')
+ var safeZone = Crafty.e('2D, Canvas, Collision')
     .attr({x:e.x, y:e.y-25, w:70, h:70})
-    .color('green')
+    //.color('green')
     .onHit('Tree', function(ent){
       ent[0].obj.destroy();
     })
