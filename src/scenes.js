@@ -116,6 +116,9 @@ function lightSense()
     .bind('EnterFrame', function(){
 		lightSense();
 	})
+	.onHit('Surface', function(){
+		Crafty.scene('BirdGame');
+	})
     
     
  var safeZone = Crafty.e('2D, Canvas, Collision, Mouse')
