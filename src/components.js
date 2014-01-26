@@ -24,21 +24,36 @@ Crafty.c('Actor', {
   },
 });
 
-Crafty.c('Earth', {
+Crafty.c('Trail', {
   init: function() {
-    this.requires('Actor, Fourway, Color, Collision')
-    .color('rgb(39, 40, 34)')
-    .onHit('Worm', this.leaveTrace);    
-  },
-  leaveTrace: function(data) {
-    this.color('rgb(58,58,56)')
-    trailStack.push(this);
-  },
+    this.requires('Actor, Color')
+      .color('rgb(39, 40, 34)')
+  }
 });
 
 
 Crafty.c('Worm', {
+  slime: function(x, y) {
+    if (!this.trail[x][y]) {
+      Crafty.e('Trail')
+        .attr({
+          y: y * Game.map_grid.tile.height,
+          x: x * Game.map_grid.tile.width,
+          w: 16,
+          h: 16,
+        })
+      this.trail[x][y] = true;
+    }
+  },
   init: function() {
+    this.trail = new Array(Game.map_grid.width);
+    for (var i = 0; i < Game.map_grid.width; i++) {
+      this.trail[i] = new Array(Game.map_grid.height);
+      for (var y = 0; y < Game.map_grid.height; y++) {
+        this.trail[i][y] = false;
+      }
+    }
+
     this.requires('Actor, Fourway, Collision, SpriteAnimation, WormSprite')
       .fourway(2)
       .reel('WormWriggle', 700, [[0,1], [0,0], [0,1], [0,2]])
@@ -56,6 +71,15 @@ Crafty.c('Worm', {
       } else {
         this.animate('WormWriggle', -1);
       }
+    });
+
+
+	  this.bind('Move', function(data) {
+      var x = Math.floor(data._x / Game.map_grid.tile.width);
+      var y1 = Math.floor((data._y) / Game.map_grid.tile.height);
+      var y2 = Math.floor((data._y + 16) / Game.map_grid.tile.height);
+      this.slime(x, y1);
+      this.slime(x, y2);
     });
   },
 

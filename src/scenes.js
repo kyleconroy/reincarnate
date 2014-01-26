@@ -13,13 +13,17 @@ Crafty.scene('WormTest', function(){
 
 
 Crafty.scene('Game', function(){
+  this.occupied = new Array(Game.map_grid.width);
+  for (var i = 0; i < Game.map_grid.width; i++) {
+    this.occupied[i] = new Array(Game.map_grid.height);
+    for (var y = 0; y < Game.map_grid.height; y++) {
+      this.occupied[i][y] = false;
+    }
+  }
+
   for (var x = 0; x < Game.map_grid.width; x++) {
     for (var y = 0; y < Game.map_grid.height; y++) {
-      var at_edge = x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1;
-
-      if (at_edge) {
-
-        // Place a rock entity at the current tile
+      if (Math.random() < 0.06) {
         Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
@@ -27,26 +31,7 @@ Crafty.scene('Game', function(){
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
-      } else {
-        if(Math.random() > 0.06) {
-          Crafty.e('Earth')
-            .attr({
-              x: x * Game.map_grid.tile.width,
-              y: y * Game.map_grid.tile.height,
-              w: Game.map_grid.tile.width,
-              h: Game.map_grid.tile.height
-            })
-        }
-        if (Math.random() < 0.06) {
-          // Place a larger rock at the current tile
-          Crafty.e('Rock')
-            .attr({
-              x: x * Game.map_grid.tile.width,
-              y: y * Game.map_grid.tile.height,
-              w: Game.map_grid.tile.width,
-              h: Game.map_grid.tile.height
-            })
-        }
+        this.occupied[x][y] = true;
       }
     }
   }
@@ -57,14 +42,6 @@ Crafty.scene('Game', function(){
       y: Math.floor(Crafty.viewport.height / 2) - 5,
       w: 64,
       h: 16,
-    })
-
-  Crafty.e('Surface')
-    .attr({
-      x: (Crafty.viewport.width - 20),
-      y: 0,
-      w: 20,
-      h: (Crafty.viewport.height),
     })
 });
 
