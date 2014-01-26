@@ -1,3 +1,23 @@
+
+
+function Stack() {
+  this.stac=new Array();
+  this.pop=function() {
+    return this.stac.pop();
+  }
+  this.push=function(item){
+    this.stac.push(item);
+    if (this.stac.length==10) {
+      this.stac.pop().destroy();
+      // alert(this.stac.pop());
+    }
+  }
+}
+
+
+var trailStack = new Stack();
+
+
 Crafty.c('Actor', {
   init: function() {
     this.requires('2D, Canvas');
@@ -8,29 +28,18 @@ Crafty.c('Earth', {
   init: function() {
     this.requires('Actor, Fourway, Color, Collision')
     .color('rgb(39, 40, 34)')
-    // .color('rgb(58,58,56)')
-    .onHit('Worm', this.leaveTrace);
+    .onHit('Worm', this.leaveTrace);    
   },
   leaveTrace: function(data) {
-    this.color('rgb(58,58,56)');
-  }
+    this.color('rgb(58,58,56)')
+    trailStack.push(this);
+  },
 });
+
 
 Crafty.c('Worm', {
   init: function() {
     this.requires('Actor, Fourway, Collision, SpriteAnimation, WormSprite')
-<<<<<<< HEAD
-    .fourway(2)
-// <<<<<<< HEAD
-    // .bind(this.colorGround)    
-    .color('rgb(255, 109, 188)')
-// =======
-    .reel('WormWriggle', 700, [[0, 0], [0, 1], [0, 2], [0, 1]])
-    .animate('WormWriggle', -1)
-// >>>>>>> ec12c676effdb5cacd41f6bc830a35f71e9e92d4
-    .onHit('Surface', this.visitSurface)
-    .onHit('Solid', this.stopMovement);
-=======
       .fourway(2)
       .reel('WormWriggle', 700, [[0,1], [0,0], [0,1], [0,2]])
       .reel('WormMoveLeft', 700, [[0,1], [0,3], [0,4], [0,3]])
@@ -48,7 +57,6 @@ Crafty.c('Worm', {
         this.animate('WormWriggle', -1);
       }
     });
->>>>>>> df0abab7e16188697cbe6552aabf1debe7dc3953
   },
 
   // colorGround: function(e) {
