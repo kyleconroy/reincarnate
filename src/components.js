@@ -3,16 +3,37 @@ Crafty.c("Multioneway", {
 
     _keydown: function (e) {
         if (this._keys[e.key]) {
-            this._movement.x = Math.round((this._movement.x + this._keys[e.key].x) * 1000) / 1000;
-            this._movement.y = Math.round((this._movement.y + this._keys[e.key].y) * 1000) / 1000;
+            var mx = Math.round((this._movement.x + this._keys[e.key].x) * 1000) / 1000;
+            var my = Math.round((this._movement.y + this._keys[e.key].y) * 1000) / 1000;
+
+            if (mx !== 0) {
+              this._movement.x = mx
+              this._movement.y = 0
+            } else {
+              this._movement.x = 0
+              this._movement.y = my
+            }
+
             this.trigger('NewDirection', this._movement);
         }
     },
 
     _keyup: function (e) {
-        if (this._keys[e.key]) {
-            this._movement.x = Math.round((this._movement.x - this._keys[e.key].x) * 1000) / 1000;
-            this._movement.y = Math.round((this._movement.y - this._keys[e.key].y) * 1000) / 1000;
+       if (this._keys[e.key]) {
+            console.log(this._keys[e.key].x);
+            console.log(this._keys[e.key].y);
+
+            var mx = Math.round((this._movement.x - this._keys[e.key].x) * 1000) / 1000;
+            var my = Math.round((this._movement.y - this._keys[e.key].y) * 1000) / 1000;
+
+            if (mx !== 0) {
+              this._movement.x = mx
+              this._movement.y = 0
+            } else {
+              this._movement.x = 0
+              this._movement.y = my
+            }
+
             this.trigger('NewDirection', this._movement);
         }
     },
@@ -20,14 +41,15 @@ Crafty.c("Multioneway", {
     _enterframe: function () {
         if (this.disableControls) return;
 
+        console.log(this._movement.x, this._movement.y);
+
         if (this._movement.x !== 0) {
             this.x += this._movement.x;
             this.trigger('Moved', {
                 x: this.x - this._movement.x,
                 y: this.y
             });
-        }
-        if (this._movement.y !== 0) {
+        } else if (this._movement.y !== 0) {
             this.y += this._movement.y;
             this.trigger('Moved', {
                 x: this.x,
