@@ -49,6 +49,7 @@ Crafty.c("Multioneway", {
     _enterframe: function () {
         if (this.disableControls) return;
 
+
         if (this._movement.x !== 0) {
             this.x += this._movement.x;
             this.trigger('Moved', {
@@ -196,10 +197,18 @@ Crafty.c('Worm', {
       .onHit('Solid', this.stopMovement);
 
 	  this.bind('NewDirection', function(data) {
-      if (data.x > 0) {
-        this.animate('WormMoveRight', -1);
-      } else if (data.x < 0) {
-        this.animate('WormMoveLeft', -1);
+      if (data.x !== 0) {
+        if (data.x > 0) {
+          this.animate('WormMoveRight', -1);
+        } else {
+          this.animate('WormMoveLeft', -1);
+        }
+      } else if (data.y !== 0) {
+        if (data.y < 0) {
+          this.animate('WormMoveLeft', -1);
+        } else {
+          this.animate('WormMoveRight', -1);
+        }
       } else {
         this.animate('WormWriggle', -1);
       }

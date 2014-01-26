@@ -37,13 +37,12 @@ Crafty.scene('Game', function(){
     }
   }
 
-
   e = Crafty.e('Worm')
     .attr({
       x: Math.floor(Crafty.viewport.width / 2) - 5,
       y: Math.floor(Crafty.viewport.height / 2) - 5,
       z: 3,
-      w: 64,
+      w: 16,
       h: 16,
     })
     
