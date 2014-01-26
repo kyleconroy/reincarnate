@@ -1,6 +1,6 @@
 Crafty.scene('Loading', function(){
   // Load our sprite map image
-  Crafty.load(['assets/sprites/worm.png', 'assets/sprints/flash.png'], function(){
+  Crafty.load(['assets/sprites/worm.png', 'assets/sprites/flash.png'], function(){
     Crafty.sprite(64, 16, 'assets/sprites/worm.png', {
       WormSprite: [0, 0],
     }, 0, 0);
