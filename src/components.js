@@ -1,23 +1,3 @@
-
-
-function Stack() {
-  this.stac=new Array();
-  this.pop=function() {
-    return this.stac.pop();
-  }
-  this.push=function(item){
-    this.stac.push(item);
-    if (this.stac.length==10) {
-      this.stac.pop().destroy();
-      // alert(this.stac.pop());
-    }
-  }
-}
-
-
-var trailStack = new Stack();
-
-
 Crafty.c('Actor', {
   init: function() {
     this.requires('2D, Canvas');
@@ -33,26 +13,7 @@ Crafty.c('Trail', {
 
 
 Crafty.c('Worm', {
-  slime: function(x, y) {
-    var trail = this.trail;
 
-    if (!trail[x][y]) {
-
-      Crafty.e('Trail')
-        .attr({
-          y: y * Game.map_grid.tile.height,
-          x: x * Game.map_grid.tile.width,
-          w: 16,
-          h: 16,
-        })
-        .timeout(function() {
-          this.destroy();
-          trail[x][y] = false;
-        }, 2500);
-  
-      trail[x][y] = true;
-    }
-  },
   init: function() {
     this.trail = new Array(Game.map_grid.width);
     for (var i = 0; i < Game.map_grid.width; i++) {
@@ -91,6 +52,26 @@ Crafty.c('Worm', {
     });
   },
 
+  slime: function(x, y) {
+    var trail = this.trail;
+
+    if (!trail[x][y]) {
+
+      Crafty.e('Trail')
+        .attr({
+          y: y * Game.map_grid.tile.height,
+          x: x * Game.map_grid.tile.width,
+          w: 16,
+          h: 16,
+        })
+        .timeout(function() {
+          this.destroy();
+          trail[x][y] = false;
+        }, 2500);
+  
+      trail[x][y] = true;
+    }
+  },
   // colorGround: function(e) {
   //   Crafty.background(red)
     // Crafty.e('Earth').attr({
