@@ -27,48 +27,6 @@ Game = {
     Crafty.background('rgb(94,21,1)');
     Crafty.pixelart(true);
     Crafty.scene('Loading');
-// <<<<<<< HEAD
-    // Crafty.scene('Game');
-    for (var x = 0; x < Game.map_grid.width; x++) {
-      for (var y = 0; y < Game.map_grid.height; y++) {
-        var at_edge = x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1;
-
-        if (at_edge) {
-
-          // Place a rock entity at the current tile
-          Crafty.e('Rock')
-          .attr({
-            x: x * Game.map_grid.tile.width,
-            y: y * Game.map_grid.tile.height,
-            w: Game.map_grid.tile.width,
-            h: Game.map_grid.tile.height
-          })
-        } 
-        else {
-          if(Math.random() > 0.06) {
-            Crafty.e('Earth')
-            .attr({
-              x: x * Game.map_grid.tile.width,
-              y: y * Game.map_grid.tile.height,
-              w: Game.map_grid.tile.width,
-              h: Game.map_grid.tile.height
-            })
-          }
-          else {
-          // Place a larger rock at the current tile
-          Crafty.e('Rock')
-          .attr({
-            x: x * Game.map_grid.tile.width,
-            y: y * Game.map_grid.tile.height,
-            w: Game.map_grid.tile.width,
-            h: Game.map_grid.tile.height
-          })
-        // }
-      }
-    }
-// =======
-    
-// >>>>>>> ec12c676effdb5cacd41f6bc830a35f71e9e92d4
   }
 }
 
