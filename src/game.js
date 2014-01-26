@@ -2,8 +2,8 @@ Game = {
   // Initialize and start our game
    // This defines our grid's size and the size of each of its tiles
    map_grid: {
-    width:  50,
-    height: 32,
+    height: Math.ceil(screen.availHeight / 16),
+    width: Math.ceil(screen.availWidth / 16),
     tile: {
       width:  16,
       height: 16
@@ -32,8 +32,4 @@ Game = {
 
 window.onresize = function() { // responsible game borders
   Crafty.viewport.reload();
-  /*e.attr({
-    x: (Crafty.viewport.width / 2) - 5,
-    y: (Crafty.viewport.height / 2) - 5,
-  })*/
 };
