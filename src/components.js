@@ -72,10 +72,17 @@ Crafty.c('Worm', {
       .onHit('Solid', this.stopMovement);
 
 	  this.bind('NewDirection', function(data) {
+      if (data.y > 0) {
+        this.rotation = 90;
+      } else if (data.y < 0) {
+        this.rotation = -90;
+      }
       if (data.x > 0) {
         this.animate('WormMoveRight', -1);
+        this.rotation = 0;
       } else if (data.x < 0) {
         this.animate('WormMoveLeft', -1);
+        this.rotation = 180;
       } else {
         this.animate('WormWriggle', -1);
       }
