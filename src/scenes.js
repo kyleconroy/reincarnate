@@ -23,12 +23,12 @@ Crafty.scene('Game', function(){
 
   for (var x = 0; x < Game.map_grid.width; x++) {
     for (var y = 0; y < Game.map_grid.height; y++) {
-      if (Math.random() < 0.03) {
+      if (Math.random() < 0.03 && !this.occupied[x][y]) {
         Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
             y: y * Game.map_grid.tile.height,
-            z: 2
+            z: 2,
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
@@ -36,6 +36,7 @@ Crafty.scene('Game', function(){
       }
     }
   }
+
 
   e = Crafty.e('Worm')
     .attr({
@@ -45,5 +46,7 @@ Crafty.scene('Game', function(){
       w: 64,
       h: 16,
     })
+    
+
 });
 
