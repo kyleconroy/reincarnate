@@ -34,7 +34,10 @@ Crafty.c('Trail', {
 
 Crafty.c('Worm', {
   slime: function(x, y) {
-    if (!this.trail[x][y]) {
+    var trail = this.trail;
+
+    if (!trail[x][y]) {
+
       Crafty.e('Trail')
         .attr({
           y: y * Game.map_grid.tile.height,
@@ -42,7 +45,12 @@ Crafty.c('Worm', {
           w: 16,
           h: 16,
         })
-      this.trail[x][y] = true;
+        .timeout(function() {
+          this.destroy();
+          trail[x][y] = false;
+        }, 2500);
+  
+      trail[x][y] = true;
     }
   },
   init: function() {
