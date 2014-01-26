@@ -163,6 +163,7 @@ Crafty.c("Fouroneway", {
     }
 });
 
+
 Crafty.c('Actor', {
   init: function() {
     this.requires('2D, Canvas');
@@ -177,6 +178,25 @@ Crafty.c('Trail', {
 });
 
 
+Crafty.c('Flash', {
+  init: function() {
+    this.requires('Actor, SpriteAnimation, FlashSprite')
+      .reel('BangTop', 500, [[0,0], [0,1], [0,2], [0,3], [0,4], [0,5],
+                             [0,6], [0,7], [0,8], [0.9], [0,10], [0,11]])
+      .reel('BangLeft', 500, [[1,0], [1,1], [1,2], [1,3], [1,4], [1,5],
+                             [1,6], [1,7], [1,8], [1.9], [1,10], [1,11]])
+      .reel('BangRight', 500, [[2,0], [2,1], [2,2], [2,3], [2,4], [2,5],
+                             [2,6], [2,7], [2,8], [2.9], [2,10], [2,11]])
+      .reel('BangBottom', 500, [[3,0], [3,1], [3,2], [3,3], [3,4], [3,5],
+                             [3,6], [3,7], [3,8], [3.9], [3,10], [3,11]])
+    this.bind('AnimationEnd', this.die);
+  },
+  
+  die: function() {
+    this.destroy();
+  },
+});
+
 Crafty.c('Worm', {
   init: function() {
     this.trail = new Array(Game.map_grid.width);
@@ -187,65 +207,120 @@ Crafty.c('Worm', {
       }
     }
 
-    this.requires('Actor, Fouroneway, Collision, SpriteAnimation, WormSprite')
+    this.requires('Actor, SpriteAnimation, WormSprite')
       .reel('WormWriggle', 700, [[0,1], [0,0], [0,1], [0,2]])
       .reel('WormMoveLeft', 700, [[0,1], [0,3], [0,4], [0,3]])
       .reel('WormMoveRight', 700, [[0,1], [0,5], [0,6], [0,5]])
-      .fouroneway(2)
       .animate('WormWriggle', -1)
-      .onHit('Surface', this.visitSurface)
-      .onHit('Solid', this.stopMovement);
+      .origin(0,8)
 
-	  this.bind('NewDirection', function(data) {
-      if (data.x !== 0) {
-        if (data.x > 0) {
-          this.animate('WormMoveRight', -1);
-        } else {
-          this.animate('WormMoveLeft', -1);
-        }
-      } else if (data.y !== 0) {
-        if (data.y < 0) {
-          this.animate('WormMoveLeft', -1);
-        } else {
-          this.animate('WormMoveRight', -1);
-        }
-      } else {
-        this.animate('WormWriggle', -1);
+    this.bind('Move', function(data) {
+      var trail = this.trail;
+      var x1 = Math.floor(data._x / Game.map_grid.tile.width);
+      var y1 = Math.floor(data._y / Game.map_grid.tile.height);
+
+      if (false && trail[x1] && !trail[x1][y1]) {
+        Crafty.e('Trail')
+          .attr({
+            y: data._y,
+            x: data._x,
+            w: 16,
+            h: 16,
+          })
+          .origin(8,8)
+          .timeout(function() {
+            this.destroy();
+            trail[x1][y1] = false;
+          }, 2500);
+        trail[x1][y1] = true;
       }
     });
+  },
 
+  changeDirection: function(data) {
+    if (data.x !== 0) {
+      this.animate('WormMoveLeft', -1);
+      if (data.x > 0) {
+        this.rotation = 180;
+      } else {
+        this.rotation = 0;
+      }
+    } else if (data.y !== 0) {
+      if (data.y < 0) {
+        this.rotation = 90;
+        this.animate('WormMoveLeft', -1);
+      } else {
+        this.rotation = 270;
+        this.animate('WormMoveLeft', -1);
+      }
+    } else {
+      this.animate('WormWriggle', -1);
+    }
+  },
 
-	  this.bind('Move', function(data) {
-      var x = Math.floor(data._x / Game.map_grid.tile.width);
-      var y1 = Math.floor((data._y) / Game.map_grid.tile.height);
-      var y2 = Math.floor((data._y + 16) / Game.map_grid.tile.height);
-      this.slime(x, y1);
-      this.slime(x, y2);
-    });
+  moveWorm: function(data) {
+    if (this.rotation == 0) {
+      this.x = data._x - 1;
+      this.y = data._y - 5;
+    } else if (this.rotation == 90) {
+      this.x = data._x + 3;
+      this.y = data._y - 10;
+    } else if (this.rotation == 180) {
+      this.x = data._x + 8;
+      this.y = data._y - 5;
+    } else if (this.rotation == 270) {
+      this.x = data._x + 3;
+      this.y = data._y;
+    }
   },
 
   slime: function(x, y) {
     var trail = this.trail;
 
-    if (!trail[x][y]) {
+  }
+})
 
-      Crafty.e('Trail')
-        .attr({
-          y: y * Game.map_grid.tile.height,
-          x: x * Game.map_grid.tile.width,
-          w: 16,
-          h: 16,
-        })
-        .timeout(function() {
-          this.destroy();
-          trail[x][y] = false;
-        }, 2500);
-  
-      trail[x][y] = true;
-    }
+Crafty.c('WormHitBox', {
+  init: function() {
+    this.requires('Actor, Fouroneway, Collision')
+      .fouroneway(2)
+      .onHit('Solid', this.stopMovement);
+
+    var worm = Crafty.e('Worm').attr({z: 3});
+
+	  this.bind('NewDirection', function(data) {
+      worm.changeDirection(data);
+    });
+
+    this.bind('Move', function(data) {
+      worm.moveWorm(data);
+    });
+
   },
 
   stopMovement: function(e) {
+    var box = e[0].obj;
+
+      
+    var flash = Crafty.e('Flash')
+      .attr({
+        z: 10,
+        x: box._x,
+        y: box._y,
+        w: 16,
+        h: 16,
+      })
+
+    if (this._movement.y > 0) {
+      flash.animate('BangTop');
+    } else if (this._movement.y < 0) {
+      flash.animate('BangBottom');
+    } else if (this._movement.x < 0) {
+      flash.animate('BangRight');
+    } else if (this._movement.x > 0) {
+      flash.animate('BangLeft');
+    }
+
     this._speed = 0;
     if (this._movement) {
       this.x -= this._movement.x;
@@ -253,16 +328,13 @@ Crafty.c('Worm', {
     }
   },
 
-  visitSurface: function(data) {
-    surface = data[0].obj;
-    surface.collect();
-  }
 });
 
 Crafty.c('Rock', {
   init: function() {
-    this.requires('Actor, Color, Solid')
-    .color('gray');
+    this.requires('Actor, Solid')
+     //.color('gray');
+
   },
 });
 

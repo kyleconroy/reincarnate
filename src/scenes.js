@@ -1,8 +1,11 @@
 Crafty.scene('Loading', function(){
   // Load our sprite map image
-  Crafty.load(['assets/sprites/worm.png'], function(){
+  Crafty.load(['assets/sprites/worm.png', 'assets/sprints/flash.png'], function(){
     Crafty.sprite(64, 16, 'assets/sprites/worm.png', {
       WormSprite: [0, 0],
+    }, 0, 0);
+    Crafty.sprite(16, 16, 'assets/sprites/flash.png', {
+      FlashSprite: [0, 0],
     }, 0, 0);
     Crafty.scene('Game');
   })
@@ -37,26 +40,18 @@ Crafty.scene('Game', function(){
     }
   }
 
-  e = Crafty.e('Worm')
+  e = Crafty.e('WormHitBox')
     .attr({
       x: Math.floor(Crafty.viewport.width / 2) - 5,
       y: Math.floor(Crafty.viewport.height / 2) - 5,
-      z: 3,
-      w: 16,
-      h: 16,
+      w: 6,
+      h: 6,
     })
     
  var safeZone = Crafty.e('2D, Canvas, Collision,')
 		.attr({x:e.x, y:e.y-25, w:70, h:70})
-		//.color('green')
 		.onHit('Rock', function(ent){
 			ent[0].obj.destroy();
-		})
-		/*	
-		.onHit('Rock', function(){
-			alert('Destroyed rocks!')
-		})	
-		*/
-
+	  })
 });
 
