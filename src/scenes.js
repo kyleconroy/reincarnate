@@ -23,7 +23,7 @@ Crafty.scene('Game', function(){
 
   for (var x = 0; x < Game.map_grid.width; x++) {
     for (var y = 0; y < Game.map_grid.height; y++) {
-      if (Math.random() < 0.06) {
+      if (Math.random() < 0.03) {
         Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
