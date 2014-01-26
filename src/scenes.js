@@ -28,6 +28,7 @@ Crafty.scene('Game', function(){
           .attr({
             x: x * Game.map_grid.tile.width,
             y: y * Game.map_grid.tile.height,
+            z: 2
             w: Game.map_grid.tile.width,
             h: Game.map_grid.tile.height
           })
@@ -40,6 +41,7 @@ Crafty.scene('Game', function(){
     .attr({
       x: Math.floor(Crafty.viewport.width / 2) - 5,
       y: Math.floor(Crafty.viewport.height / 2) - 5,
+      z: 3,
       w: 64,
       h: 16,
     })

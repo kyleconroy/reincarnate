@@ -42,6 +42,7 @@ Crafty.c('Worm', {
         .attr({
           y: y * Game.map_grid.tile.height,
           x: x * Game.map_grid.tile.width,
+          z: 1,
           w: 16,
           h: 16,
         })
