@@ -70,8 +70,6 @@ if(floorEdge == 4){Crafty.e('Surface').attr({x:Crafty.viewport.width - 16, y:0, 
 		.attr({x:e.x, y:e.y-25, w:70, h:70})
 		.onHit('Rock', function(ent){
 			ent[0].obj.destroy();
-
-      
 		})
 		/*	
 		.onHit('Rock', function(){
@@ -129,11 +127,15 @@ Crafty.scene('BirdGame', function() {
       h: 16,
     })
     
- var safeZone = Crafty.e('2D, Canvas, Collision,')
+ var safeZone = Crafty.e('2D, Canvas, Collision,Color')
     .attr({x:e.x, y:e.y-25, w:70, h:70})
-    //.color('green')
+    .color('green')
     .onHit('Tree', function(ent){
       ent[0].obj.destroy();
+    })
+     .onHit('Cloud', function(ent){
+      ent[0].obj.destroy();
+      console.log('Destroyed cloud!');
     })
     /*  
     .onHit('Rock', function(){
