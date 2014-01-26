@@ -43,7 +43,7 @@ if(floorEdge == 4){Crafty.e('Surface').attr({x:Crafty.viewport.width - 16, y:0, 
 
   for (var x = 0; x < Game.map_grid.width; x++) {
     for (var y = 0; y < Game.map_grid.height; y++) {
-      if (Math.random() < 0.03 && !this.occupied[x][y]) {
+      if (Math.random() < 0.1 && !this.occupied[x][y]) {
         Crafty.e('Rock')
           .attr({
             x: x * Game.map_grid.tile.width,
