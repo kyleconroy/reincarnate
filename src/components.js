@@ -319,6 +319,8 @@ Crafty.c('WormHitBox', {
       flash.animate('BangRight');
     } else if (this._movement.x > 0) {
       flash.animate('BangLeft');
+    } else {
+      flash.destroy();
     }
 
     this._speed = 0;
