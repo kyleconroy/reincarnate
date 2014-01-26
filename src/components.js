@@ -307,7 +307,10 @@ Crafty.c('WormHitBox', {
   init: function() {
     this.requires('Actor, Fouroneway, Collision')
       .fouroneway(2)
-      .onHit('Solid', this.stopMovement);
+      .onHit('Solid', this.stopMovement)
+      .onHit('Surface', function(){
+		  Crafty.scene('BirdGame');
+	  });
 
     var worm = Crafty.e('Worm').attr({z: 3});
 
@@ -383,9 +386,9 @@ Crafty.c('Tree', {
 Crafty.c('Surface', {
   init: function() {
     this.requires('Actor, Color, Collision')
-    /*.onHit('WormHitBox', function(){
-		alert('You reached the surface!');
-	})*/
+    .onHit('WormHitBox', function(){
+		Crafty.scene('BirdGame');
+	})
     //.color('blue');
   },
 
