@@ -18,10 +18,15 @@ Crafty.c('Earth', {
 
 Crafty.c('Worm', {
   init: function() {
-    this.requires('Actor, Fourway, Color, Collision')
+    this.requires('Actor, Fourway, Collision, SpriteAnimation, WormSprite')
     .fourway(2)
+// <<<<<<< HEAD
     // .bind(this.colorGround)    
     .color('rgb(255, 109, 188)')
+// =======
+    .reel('WormWriggle', 700, [[0, 0], [0, 1], [0, 2], [0, 1]])
+    .animate('WormWriggle', -1)
+// >>>>>>> ec12c676effdb5cacd41f6bc830a35f71e9e92d4
     .onHit('Surface', this.visitSurface)
     .onHit('Solid', this.stopMovement);
   },

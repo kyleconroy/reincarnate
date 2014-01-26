@@ -1,5 +1,3 @@
-var e;
-
 Game = {
   // Initialize and start our game
    // This defines our grid's size and the size of each of its tiles
@@ -27,6 +25,9 @@ Game = {
     // Start crafty and set a background color so that we can see it's working
     Crafty.init();
     Crafty.background('rgb(94,21,1)');
+    Crafty.pixelart(true);
+    Crafty.scene('Loading');
+// <<<<<<< HEAD
     // Crafty.scene('Game');
     for (var x = 0; x < Game.map_grid.width; x++) {
       for (var y = 0; y < Game.map_grid.height; y++) {
@@ -65,33 +66,16 @@ Game = {
         // }
       }
     }
+// =======
+    
+// >>>>>>> ec12c676effdb5cacd41f6bc830a35f71e9e92d4
   }
-
-  e = Crafty.e('Worm')
-  .attr({
-    x: (Crafty.viewport.width / 2) - 5,
-    y: (Crafty.viewport.height / 2) - 5,
-    w: 10,
-    h: 20,
-  })
-
-  Crafty.e('Surface')
-  .attr({
-    x: (Crafty.viewport.width - 20),
-    y: 0,
-    w: 20,
-    h: (Crafty.viewport.height),
-  })
-
-}
-
 }
 
 window.onresize = function() { // responsible game borders
   Crafty.viewport.reload();
-
-  e.attr({
+  /*e.attr({
     x: (Crafty.viewport.width / 2) - 5,
     y: (Crafty.viewport.height / 2) - 5,
-  })
+  })*/
 };
