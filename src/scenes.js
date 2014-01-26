@@ -26,12 +26,8 @@ Crafty.scene('Game', function(){
   }
 
   var logo = Crafty.e("2D, Canvas, Image").image("assets/worm_logo.png");
-/*  
-var topEdge = x == 0;
-var bottomEdge = y == Game.map_grid.height;
-var leftEdge = y == 0;
-var rightEdge = x == Game.map_grid.width-1;
-*/
+ 
+
 var floorEdge = Math.floor(Math.random()*4)+1;
 console.log(floorEdge);
 
