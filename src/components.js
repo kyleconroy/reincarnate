@@ -175,6 +175,29 @@ Crafty.c('Trail', {
   }
 });
 
+Crafty.c('Bird', {
+  init: function() {
+    this.requires('Actor, Fouroneway, Collision, Color')
+      .color('rgb(179,179,179)')
+      .fouroneway(2)
+      .onHit('Solid', this.stopMovement);
+
+    this.bind('Move', function(data) {
+      var x = Math.floor(data._x / Game.map_grid.tile.width);
+      var y1 = Math.floor((data._y) / Game.map_grid.tile.height);
+      var y2 = Math.floor((data._y + 16) / Game.map_grid.tile.height);
+    });
+  },
+
+  stopMovement: function(e) {
+    this._speed = 0;
+    if (this._movement) {
+      this.x -= this._movement.x;
+      this.y -= this._movement.y;
+    }
+  }
+});
+
 
 Crafty.c('Worm', {
   init: function() {
@@ -237,6 +260,7 @@ Crafty.c('Worm', {
   },
 
   stopMovement: function(e) {
+    Crafty.scene('BirdGame');
     this._speed = 0;
     if (this._movement) {
       this.x -= this._movement.x;
@@ -254,6 +278,20 @@ Crafty.c('Rock', {
   init: function() {
     this.requires('Actor, Color, Solid')
     .color('gray');
+  },
+});
+
+Crafty.c('Cloud', {
+  init: function() {
+    this.requires('Actor, Color, Solid')
+    .color('white');
+  },
+});
+
+Crafty.c('Tree', {
+  init: function() {
+    this.requires('Actor, Color, Solid')
+    .color('rgb(0,129,107)');
   },
 });
 
