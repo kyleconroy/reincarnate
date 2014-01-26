@@ -343,6 +343,9 @@ Crafty.c('Rock', {
 Crafty.c('Surface', {
   init: function() {
     this.requires('Actor, Color, Collision')
+    /*.onHit('WormHitBox', function(){
+		alert('You reached the surface!');
+	})*/
     //.color('blue');
   },
 
