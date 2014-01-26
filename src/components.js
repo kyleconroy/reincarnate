@@ -259,7 +259,7 @@ Crafty.c('Rock', {
 
 Crafty.c('Surface', {
   init: function() {
-    this.requires('Actor, Color')
+    this.requires('Actor, Color, Collision')
     .color('blue');
   },
 

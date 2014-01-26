@@ -20,6 +20,21 @@ Crafty.scene('Game', function(){
       this.occupied[i][y] = false;
     }
   }
+/*  
+var topEdge = x == 0;
+var bottomEdge = y == Game.map_grid.height;
+var leftEdge = y == 0;
+var rightEdge = x == Game.map_grid.width-1;
+*/
+var floorEdge = Math.floor(Math.random()*4)+1;
+console.log(floorEdge);
+
+if(floorEdge == 1){Crafty.e('Surface').attr({x:0, y:0, z:3, w:16, h:Crafty.viewport.height});}
+if(floorEdge == 2){Crafty.e('Surface').attr({x:0, y:0, z:3, w:Crafty.viewport.width, h:16});}
+if(floorEdge == 3){Crafty.e('Surface').attr({x:0, y:Crafty.viewport.height - 16, z:3, w:Crafty.viewport.width, h:16});}
+if(floorEdge == 4){Crafty.e('Surface').attr({x:Crafty.viewport.width - 16, y:0, z:3, w:16, h:Crafty.viewport.height});}
+
+
 
   for (var x = 0; x < Game.map_grid.width; x++) {
     for (var y = 0; y < Game.map_grid.height; y++) {
@@ -47,7 +62,7 @@ Crafty.scene('Game', function(){
       h: 16,
     })
     
- var safeZone = Crafty.e('2D, Canvas, Collision,')
+ var safeZone = Crafty.e('2D, Canvas, Collision')
 		.attr({x:e.x, y:e.y-25, w:70, h:70})
 		//.color('green')
 		.onHit('Rock', function(ent){
