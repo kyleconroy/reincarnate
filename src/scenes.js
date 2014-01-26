@@ -23,6 +23,8 @@ Crafty.scene('Game', function(){
       this.occupied[i][y] = false;
     }
   }
+
+  var logo = Crafty.e("2D, Canvas, Image").image("assets/worm_logo.png");
 /*  
 var topEdge = x == 0;
 var bottomEdge = y == Game.map_grid.height;
