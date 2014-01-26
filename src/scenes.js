@@ -36,6 +36,58 @@ if(floorEdge == 2){Crafty.e('Surface').attr({x:0, y:0, z:3, w:Crafty.viewport.wi
 if(floorEdge == 3){Crafty.e('Surface').attr({x:0, y:Crafty.viewport.height - 16, z:3, w:Crafty.viewport.width, h:16});}
 if(floorEdge == 4){Crafty.e('Surface').attr({x:Crafty.viewport.width - 16, y:0, z:3, w:16, h:Crafty.viewport.height});}
 
+function lightSense()
+	{
+		if(floorEdge == 1)
+		{
+			if(e.x <= Crafty.viewport.width/3){
+				Crafty.background('#1b1b1b');
+			}
+			else if (e.x <= Crafty.viewport.width/4){
+				Crafty.background('#323232');
+				}			}
+			else if(e.x <= Crafty.viewport.width/6){
+				Crafty.background('#525252');
+				}
+		
+		if(floorEdge == 2)
+		{
+			if(e.y <= Crafty.viewport.height/3){
+				Crafty.background('#1b1b1b');
+			}
+			else if(e.y <= Crafty.viewport.height/4){
+				Crafty.background('#323232');
+			}
+			else if(e.y <= Crafty.viewport.height/6){
+				Crafty.background('#525252');
+			}
+		}
+		if(floorEdge == 3)
+		{
+			if(e.x >= Crafty.viewport.width*.66){
+				Crafty.background('#1b1b1b');
+			}
+			else if(e.x >= Crafty.viewport.width*.75){
+				Crafty.background('#323232');
+			}
+			else if(e.x >= Crafty.viewport.width*.83){
+				Crafty.background('#525252');
+			}
+		}
+		if(floorEdge == 4)
+		{
+			if(e.y >= Crafty.viewport.height*.66){
+				Crafty.background('#1b1b1b');
+			}
+			else if(e.y >= Crafty.viewport.height*.75){
+				Crafty.background('#323232');
+			}
+			else if(e.y >= Crafty.viewport.height*.83){
+				Crafty.background('#525252');
+			}
+		}
+	}			
+	
 
 
   for (var x = 0; x < Game.map_grid.width; x++) {
@@ -61,11 +113,15 @@ if(floorEdge == 4){Crafty.e('Surface').attr({x:Crafty.viewport.width - 16, y:0, 
       w: 6,
       h: 6,
     })
+    .bind('EnterFrame', function(){
+		lightSense();
+	})
     
- var safeZone = Crafty.e('2D, Canvas, Collision')
+    
+ var safeZone = Crafty.e('2D, Canvas, Collision, Mouse')
 		.attr({x:e.x, y:e.y-25, w:70, h:70})
 		.onHit('Rock', function(ent){
-			ent[0].obj.destroy();
+			ent[0].obj.destroy();	
 		})
 		/*	
 		.onHit('Rock', function(){

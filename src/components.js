@@ -323,7 +323,7 @@ Crafty.c('WormHitBox', {
 
   stopMovement: function(e) {
 
-    Crafty.scene('BirdGame');
+    //Crafty.scene('BirdGame');
 
     var box = e[0].obj;
 
